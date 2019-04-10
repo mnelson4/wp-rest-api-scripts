@@ -32,13 +32,18 @@ function wp_rest_api_scripts_add_field()
 }
 
 add_action('rest_api_init', 'wp_rest_api_scripts_add_field');
+/**
+ * Gets the enqueued scripts and stylesheets that would normally go into the header and footer, and instead dumps them
+ * into this field. Yes, it's that easy (it turns out web browsers are pretty good at sorting out the mess.)
+ * @since $VID:$
+ * @param $post
+ * @param $field_name
+ * @param $request
+ * @return false|string
+ */
 function wp_rest_api_scripts_get_field($post, $field_name, $request)
 {
-//    global $wp_scripts;
-//    $results = wp_print_scripts();
     ob_start();
-//    do_action('wp_print_scripts');
-
     print_head_scripts();
     _wp_footer_scripts();
     $results = ob_get_clean();
